@@ -2504,3 +2504,16 @@ kgs:
   delimiter: ","
   default_format: "%n %u"
   default_precision: 2
+twd:
+  name: New Taiwan Dollar
+  priority: 100
+  iso_code: TWD
+  iso_numeric: "901"
+  symbol: "NT$"
+  minor_unit: Cent
+  minor_unit_conversion: 100
+  smallest_denomination: 1
+  separator: "."
+  delimiter: ","
+  default_format: "%u%n"
+  default_precision: 2
