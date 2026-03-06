@@ -8,6 +8,8 @@ class Settings::HostingsController < ApplicationController
   def show
     synth_provider = Provider::Registry.get_provider(:synth)
     @synth_usage = synth_provider&.usage
+    @exchange_api_healthy = Provider::Registry.get_provider(:exchange_api)&.healthy?&.success?
+    @frankfurter_healthy = Provider::Registry.get_provider(:frankfurter)&.healthy?&.success?
   end
 
   def update

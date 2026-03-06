@@ -69,23 +69,10 @@ class Family < ApplicationRecord
     country != "US" && country != "CA"
   end
 
-  def requires_data_provider?
-    # If family has any trades, they need a provider for historical prices
-    return true if trades.any?
-
-    # If family has any accounts not denominated in the family's currency, they need a provider for historical exchange rates
-    return true if accounts.where.not(currency: self.currency).any?
-
-    # If family has any entries in different currencies, they need a provider for historical exchange rates
-    uniq_currencies = entries.pluck(:currency).uniq
-    return true if uniq_currencies.count > 1
-    return true if uniq_currencies.count > 0 && uniq_currencies.first != self.currency
-
-    false
-  end
-
   def missing_data_provider?
-    requires_data_provider? && Provider::Registry.get_provider(:synth).nil?
+    # Exchange rates are always available via Frankfurter (no API key needed).
+    # Only flag missing provider if securities data is needed (trades exist) and Synth is not configured.
+    trades.any? && Provider::Registry.get_provider(:synth).nil?
   end
 
   def oldest_entry_date

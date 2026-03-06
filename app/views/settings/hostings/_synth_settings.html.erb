@@ -1,10 +1,10 @@
 <div class="space-y-4">
   <div>
-    <h2 class="font-medium mb-1"><%= t(".title") %></h2>
+    <h2 class="font-medium mb-1">Securities Data (Synth)</h2>
     <% if ENV["SYNTH_API_KEY"].present? %>
       <p class="text-sm text-secondary">You have successfully configured your Synth API key through the SYNTH_API_KEY environment variable.</p>
     <% else %>
-      <p class="text-secondary text-sm mb-4"><%= t(".description") %></p>
+      <p class="text-secondary text-sm mb-4">Synth API is used to fetch historical security prices and stock data. This is only needed if you track investments. Exchange rates are handled separately (no API key needed).</p>
     <% end %>
   </div>
 

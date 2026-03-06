@@ -7,8 +7,6 @@ class Settings::HostingsControllerTest < ActionDispatch::IntegrationTest
   setup do
     sign_in users(:family_admin)
 
-    @provider = mock
-    Provider::Registry.stubs(:get_provider).with(:synth).returns(@provider)
     @usage_response = provider_success_response(
       OpenStruct.new(
         used: 10,
@@ -17,6 +15,18 @@ class Settings::HostingsControllerTest < ActionDispatch::IntegrationTest
         plan: "free",
       )
     )
+
+    @provider = mock
+    @provider.stubs(:usage).returns(@usage_response)
+    Provider::Registry.stubs(:get_provider).with(:synth).returns(@provider)
+
+    @frankfurter_provider = mock
+    @frankfurter_provider.stubs(:healthy?).returns(provider_success_response(true))
+    Provider::Registry.stubs(:get_provider).with(:frankfurter).returns(@frankfurter_provider)
+
+    @exchange_api_provider = mock
+    @exchange_api_provider.stubs(:healthy?).returns(provider_success_response(true))
+    Provider::Registry.stubs(:get_provider).with(:exchange_api).returns(@exchange_api_provider)
   end
 
   test "cannot edit when self hosting is disabled" do

@@ -1,0 +1,38 @@
+<div class="space-y-4">
+  <div>
+    <h2 class="font-medium mb-1">Exchange Rates</h2>
+    <p class="text-secondary text-sm mb-4">
+      Exchange rates are provided by free, open-source APIs. No API key is required.
+      The primary provider supports 340+ currencies. Frankfurter (ECB data, ~31 currencies)
+      and Synth are used as fallbacks.
+    </p>
+  </div>
+
+  <div class="space-y-3">
+    <div>
+      <p class="text-sm font-medium mb-1">Primary: Exchange API</p>
+      <div class="flex items-center gap-2">
+        <% if @exchange_api_healthy %>
+          <div class="w-2 h-2 rounded-full bg-green-500"></div>
+          <p class="text-sm text-secondary">Connected and operational</p>
+        <% else %>
+          <div class="w-2 h-2 rounded-full bg-red-500"></div>
+          <p class="text-sm text-secondary">Unable to connect to Exchange API</p>
+        <% end %>
+      </div>
+    </div>
+
+    <div>
+      <p class="text-sm font-medium mb-1">Fallback: Frankfurter</p>
+      <div class="flex items-center gap-2">
+        <% if @frankfurter_healthy %>
+          <div class="w-2 h-2 rounded-full bg-green-500"></div>
+          <p class="text-sm text-secondary">Connected and operational</p>
+        <% else %>
+          <div class="w-2 h-2 rounded-full bg-red-500"></div>
+          <p class="text-sm text-secondary">Unable to connect to Frankfurter API</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

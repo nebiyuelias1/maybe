@@ -32,6 +32,14 @@ class Provider::Registry
         Provider::Stripe.new(secret_key:, webhook_secret:)
       end
 
+      def exchange_api
+        Provider::ExchangeApi.new
+      end
+
+      def frankfurter
+        Provider::Frankfurter.new
+      end
+
       def synth
         api_key = ENV.fetch("SYNTH_API_KEY", Setting.synth_api_key)
 
@@ -92,7 +100,7 @@ class Provider::Registry
     def available_providers
       case concept
       when :exchange_rates
-        %i[synth]
+        %i[exchange_api frankfurter synth]
       when :securities
         %i[synth]
       when :llm

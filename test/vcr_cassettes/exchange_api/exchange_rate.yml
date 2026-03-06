@@ -1,0 +1,29 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://2024-01-01.currency-api.pages.dev/v1/currencies/usd.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.13.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - max-age=86400, public
+    body:
+      encoding: UTF-8
+      string: '{"date":"2024-01-01","usd":{"eur":0.905,"gbp":0.785,"jpy":141.0,"twd":30.71,"cad":1.324,"aud":1.468,"chf":0.838,"cny":7.098,"hkd":7.811,"krw":1289.0,"sgd":1.32,"inr":83.15}}'
+  recorded_at: Wed, 04 Mar 2026 12:00:00 GMT
+recorded_with: VCR 6.3.1

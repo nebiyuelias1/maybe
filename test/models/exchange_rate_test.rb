@@ -8,6 +8,7 @@ class ExchangeRateTest < ActiveSupport::TestCase
     @provider = mock
 
     ExchangeRate.stubs(:provider).returns(@provider)
+    ExchangeRate.stubs(:fallback_providers).returns([])
   end
 
   test "finds rate in DB" do

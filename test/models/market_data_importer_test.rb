@@ -19,6 +19,13 @@ class MarketDataImporterTest < ActiveSupport::TestCase
                       .stubs(:get_provider)
                       .with(:synth)
                       .returns(@provider)
+
+    # Exchange rates now use exchange_api as the primary provider
+    @exchange_rate_provider = mock("exchange_rate_provider")
+    Provider::Registry.any_instance
+                      .stubs(:get_provider)
+                      .with(:exchange_api)
+                      .returns(@exchange_rate_provider)
   end
 
   test "syncs required exchange rates" do
@@ -37,7 +44,7 @@ class MarketDataImporterTest < ActiveSupport::TestCase
     expected_start_date = (SNAPSHOT_START_DATE + 1.day) - PROVIDER_BUFFER
     end_date            = Date.current.in_time_zone("America/New_York").to_date
 
-    @provider.expects(:fetch_exchange_rates)
+    @exchange_rate_provider.expects(:fetch_exchange_rates)
              .with(from: "CAD",
                    to: "USD",
                    start_date: expected_start_date,
@@ -76,7 +83,7 @@ class MarketDataImporterTest < ActiveSupport::TestCase
              .returns(provider_success_response(OpenStruct.new(name: "Apple", logo_url: "logo")))
 
     # Ignore exchange rate calls for this test
-    @provider.stubs(:fetch_exchange_rates).returns(provider_success_response([]))
+    @exchange_rate_provider.stubs(:fetch_exchange_rates).returns(provider_success_response([]))
 
     MarketDataImporter.new(mode: :snapshot).import_security_prices
 
